@@ -24,6 +24,10 @@ describe Oystercard do
       expect{subject.top_up(91)}.to raise_error("Top up exceeds maximum balance")
     end
 
+    it "gives the user a message confirming a succesful top up" do
+      expect(subject.top_up(50)).to eq "Top up succesful. Your new balance is #{subject.balance}"
+    end
+
 
   end
 
