@@ -24,10 +24,12 @@ class Oystercard
   end
 
   def touch_in
+    @status = true
   end
 
   def touch_out
-  end    
+    @status = false
+  end
 
   private
 
