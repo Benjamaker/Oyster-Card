@@ -41,6 +41,8 @@ describe Oystercard do
       expect{subject.deduct(10)}.to change{subject.balance}.by -10
     end
 
+  end
+
   context "journey" do
 
     it "can be in a journey" do
@@ -56,21 +58,27 @@ describe Oystercard do
     end
 
     it "changes #in_journey? status to true when touched in" do
+      subject.top_up(10)
       subject.touch_in
       expect(subject).to be_in_journey
     end
 
     it "changes #in_journey? status to false when touched out" do
+      subject.top_up(10)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
     end
 
-
   end
 
-  end
+  context "#touch_in" do
 
+    it "raises an error if there is insufficient balance for a minimum fare" do
+      expect{subject.touch_in}.to raise_error "Insufficient balance. Please top up"
+    end
+
+  end
 
 
 
