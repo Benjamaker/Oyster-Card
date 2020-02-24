@@ -8,7 +8,9 @@ describe Oystercard do
       expect(subject).to have_attributes(balance: 0)
     end
 
-  context '#top_up'
+  end
+
+  context '#top_up' do
 
     it "can be topped up" do
       expect(subject).to respond_to(:top_up).with(1).argument
@@ -17,5 +19,17 @@ describe Oystercard do
     it "tops up the balance by the given amount" do
       expect{subject.top_up(3)}.to change{subject.balance}.by 3
     end
+
+    it "raises an error if top up exceeds maximum balance" do
+      expect{subject.top_up(91)}.to raise_error("Top up exceeds maximum balance")
+    end
+
+
   end
+
+
+
+
+
+
 end
