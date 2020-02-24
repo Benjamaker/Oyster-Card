@@ -14,13 +14,17 @@ class Oystercard
     success_message
   end
 
+  def deduct(money)
+    @balance -= money
+  end
+
 
 
 
   private
 
   def check_max_balance(money)
-    raise "Top up exceeds #{MAX_BALANCE}" if (@balance + money) > MAX_BALANCE
+    raise "Top up exceeds maximum balance of #{MAX_BALANCE}" if (@balance + money) > MAX_BALANCE
   end
 
   def success_message
