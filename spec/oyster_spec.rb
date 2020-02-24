@@ -41,6 +41,23 @@ describe Oystercard do
       expect{subject.deduct(10)}.to change{subject.balance}.by -10
     end
 
+  context "journey" do
+
+    it "can be in a journey" do
+      expect(subject).to have_attributes(in_journey?: false)
+    end
+
+    it "can touch in to start a journey" do
+      expect(subject).to respond_to(:touch_in)
+    end
+
+    it "can touch out to end a journey" do
+      expect(subject).to respond_to(:touch_out)
+    end
+
+
+  end
+
   end
 
 
