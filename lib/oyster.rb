@@ -20,11 +20,11 @@ class Oystercard
   private
 
   def check_max_balance(money)
-    raise "Top up exceeds maximum balance" if (@balance + money) > MAX_BALANCE
+    raise "Top up exceeds #{MAX_BALANCE}" if (@balance + money) > MAX_BALANCE
   end
 
   def success_message
     "Top up succesful. Your new balance is #{@balance}"
   end
-  
+
 end

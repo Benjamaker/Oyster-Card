@@ -21,7 +21,7 @@ describe Oystercard do
     end
 
     it "raises an error if top up exceeds maximum balance" do
-      expect{subject.top_up(91)}.to raise_error("Top up exceeds maximum balance")
+      expect{subject.top_up(91)}.to raise_error("Top up exceeds 90")
     end
 
     it "gives the user a message confirming a succesful top up" do
