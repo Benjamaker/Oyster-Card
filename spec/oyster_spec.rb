@@ -2,6 +2,8 @@ require "./lib/oyster.rb"
 
 describe Oystercard do
 
+  let(:dbl_stn) { double("Station", name: "test_station") }
+
   context '#balance' do
 
     it "can store a balance on it" do
@@ -51,7 +53,7 @@ describe Oystercard do
     end
 
     it "can touch in to start a journey" do
-      expect(subject).to respond_to(:touch_in)
+      expect(subject).to respond_to(:touch_in).with(1).argument
     end
 
     it "can touch out to end a journey" do
@@ -60,19 +62,19 @@ describe Oystercard do
 
     it "changes #in_journey? status to true when touched in" do
       subject.top_up(10)
-      #subject.touch_in
-      expect(subject.tap{|s|s.touch_in}).to be_in_journey
+      #subject.touch_in(dbl_stn)
+      expect(subject.tap{|s|s.touch_in(dbl_stn)}).to be_in_journey
     end
 
     it "status of #in_journey stays true if already touched in" do
       subject.top_up(10)
-      subject.touch_in
-      expect{subject.touch_in}.not_to change{subject.in_journey?}
+      subject.touch_in(dbl_stn)
+      expect{subject.touch_in(dbl_stn)}.not_to change{subject.in_journey?}
     end
 
     it "changes #in_journey? status to false when touched out" do
       subject.top_up(10)
-      subject.touch_in
+      subject.touch_in(dbl_stn)
       subject.touch_out
       expect(subject).not_to be_in_journey
     end
@@ -85,10 +87,16 @@ describe Oystercard do
 
   end
 
-  context "#touch_in" do
+  context "#touch_in(dbl_stn)" do
 
     it "raises an error if there is insufficient balance for a minimum fare" do
-      expect{subject.touch_in}.to raise_error "Insufficient balance. Please top up"
+      expect{subject.touch_in(dbl_stn)}.to raise_error "Insufficient balance. Please top up"
+    end
+
+    it "remembers the station when touching in" do
+      subject.top_up(10)
+      subject.touch_in(dbl_stn)
+      expect(subject.entry_station).to eq(dbl_stn)
     end
 
   end

@@ -5,10 +5,12 @@ class Oystercard
   MIN_FARE = 1
 
   attr_reader :balance
+  attr_reader :entry_station
 
   def initialize
     @balance = 0
     @status = false
+    @entry_station = nil
   end
 
   def top_up(money)
@@ -21,9 +23,10 @@ class Oystercard
     @status
   end
 
-  def touch_in
+  def touch_in(station)
     check_min_balance
     @status = true
+    @entry_station = station
   end
 
   def touch_out
