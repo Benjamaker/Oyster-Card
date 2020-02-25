@@ -59,8 +59,14 @@ describe Oystercard do
 
     it "changes #in_journey? status to true when touched in" do
       subject.top_up(10)
+      #subject.touch_in
+      expect(subject.tap{|s|s.touch_in}).to be_in_journey
+    end
+
+    it "status of #in_journey stays true if already touched in" do
+      subject.top_up(10)
       subject.touch_in
-      expect(subject).to be_in_journey
+      expect{subject.touch_in}.not_to change{subject.in_journey?}
     end
 
     it "changes #in_journey? status to false when touched out" do
@@ -68,6 +74,12 @@ describe Oystercard do
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
+    end
+
+    it "status of #in_journey stays false if already touched out" do
+      subject.top_up(10)
+      subject.touch_out
+      expect{subject.touch_out}.not_to change{subject.in_journey?}
     end
 
   end
@@ -80,6 +92,17 @@ describe Oystercard do
 
   end
 
+  context "#touch_out" do
+
+    it "responds to #deduct" do
+      expect(subject).to respond_to(:touch_out)
+    end
+
+  #   it "reduces balance by the correct amount" do
+  #     expect{subject.touch_out}.to change{subject.balance}.by 1
+  #   end
+  # end
+end
 
 
 
