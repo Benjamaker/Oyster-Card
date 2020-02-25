@@ -30,18 +30,19 @@ describe Oystercard do
 
   end
 
-  context '#deduct' do
-
-    it "can have money deducted" do
-      expect(subject).to respond_to(:deduct).with(1).argument
-    end
-
-    it "deducts the given amount from balance" do
-      subject.top_up(50)
-      expect{subject.deduct(10)}.to change{subject.balance}.by -10
-    end
-
-  end
+#REMOVED THESE TESTS AS MADE DEDUCT METHOD PRIVATE
+  # context '#deduct' do
+  #
+  #   it "can have money deducted" do
+  #     expect(subject).to respond_to(:deduct).with(1).argument
+  #   end
+  #
+  #   it "deducts the given amount from balance" do
+  #     subject.top_up(50)
+  #     expect{subject.deduct(10)}.to change{subject.balance}.by -10
+  #   end
+  #
+  # end
 
   context "journey" do
 
@@ -98,13 +99,8 @@ describe Oystercard do
       expect(subject).to respond_to(:touch_out)
     end
 
-  #   it "reduces balance by the correct amount" do
-  #     expect{subject.touch_out}.to change{subject.balance}.by 1
-  #   end
-  # end
-end
-
-
-
-
+    it "reduces balance by the correct amount" do
+      expect{subject.touch_out}.to change{subject.balance}.by -1
+    end
+  end
 end
