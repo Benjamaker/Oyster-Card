@@ -110,5 +110,12 @@ describe Oystercard do
     it "reduces balance by the correct amount" do
       expect{subject.touch_out}.to change{subject.balance}.by -1
     end
+
+    it "forgets entry_station when touched out" do
+      subject.top_up(10)
+      subject.touch_in(dbl_stn)
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
+    end
   end
 end
