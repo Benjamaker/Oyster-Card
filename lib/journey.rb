@@ -8,4 +8,13 @@ class Journey
     @entry_station
     @exit_station
   end
+
+  def start_journey
+
+  end
+
+  def end_journey
+
+  end
+      
 end
