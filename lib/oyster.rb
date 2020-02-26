@@ -32,6 +32,7 @@ class Oystercard
     @journeys.last.transform_values! { exit_station }
   end
 
+
   private
 
   def deduct(money)
